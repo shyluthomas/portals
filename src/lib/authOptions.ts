@@ -9,7 +9,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         // Replace this with your actual user authentication logic
-        const user = { id: '1', name: "John Doe", email: credentials?.email };
+        const user = { id: '1', name: "John Doe", email: credentials?.email, accessToken: 'jhbsjdguyewew' };
 
         if (user) {
           return user;
@@ -24,9 +24,10 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, account, user }) {
-      if (account) {
+      if (user) {
+        console.log('account', account, token, user)
         token.id = user.id;
-        token.acessToken = account?.access_token;
+        token.accessToken = user?.accessToken;
       }
       return token;
     },

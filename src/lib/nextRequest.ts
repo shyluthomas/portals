@@ -6,7 +6,7 @@ import { authOptions } from "./authOptions";
 
 interface NextRequestOptions<Data, Dto> {
     service: string;
-    url?: string;
+    url: string;
     mockData: Data;
     data?: unknown;
     method: Method;
@@ -35,6 +35,7 @@ export const nextRequest = async <Data = unknown, Dto = unknown>({
         }
     }
     const session = await getServerSession(authOptions);
+    console.log('session', session)
     const token = session?.accessToken;
     if(!token) {
         return {
@@ -51,7 +52,7 @@ export const nextRequest = async <Data = unknown, Dto = unknown>({
         fetchOptions.next = { tags };
     }
     // URL (baseurl, endpoint)
-    const fetchUrl = new URL(url ?? '', service);
+    const fetchUrl = new URL(service, url);
     if(params) {
         Object.entries(params).forEach(([key, value]) => {
             fetchUrl.searchParams.set(key, value);
@@ -64,10 +65,11 @@ export const nextRequest = async <Data = unknown, Dto = unknown>({
             body: data ? JSON.stringify(data): undefined,
             headers: {
                 'Content-Type': 'application/json', // Specifies the type of content
-                'Authorization': `Bearer ${token}`, // Authorization header
+                // 'Authorization': `Bearer ${token}`, // Authorization header
               },
             ...fetchOptions,
         });
+       
     } catch (error) {
         if(error instanceof Error) {
             response = {
@@ -94,7 +96,6 @@ export const nextRequest = async <Data = unknown, Dto = unknown>({
             error: respondData as Data,
         }
     }
-
     return {
         ok: true,
         data: transformResponse ? transformResponse(respondData as never): respondData,

@@ -12,6 +12,7 @@ declare module "next-auth" {
     accessToken?: string; 
     user: {
       id: string; // Add the id field here
+      accessToken: string;
     } & DefaultSession["user"];
   }
 
@@ -20,6 +21,7 @@ declare module "next-auth" {
    */
   interface User extends DefaultUser {
     id: string; // You can add other custom properties here
+    accessToken: string;
   }
   declare module 'next-auth/jwt' {
     interface JWT extends DefaultJWT {

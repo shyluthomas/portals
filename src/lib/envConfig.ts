@@ -32,12 +32,14 @@ interface PrivateEnvConfig {
     mockApienabled: boolean;
     nextauthUrl: string;
     nextauthSecret: string;
+    service: string;
 }
 
 const configData: EnvConfig[] = [
     {key: 'mockApienabled', envKey: 'MOCK_API_ENABLED', type: 'boolean'},
     {key: 'nextauthUrl', envKey: 'NEXT_AUTH_URL'},
-    {key: 'nextauthSecret', envKey: 'NEXT_AUTH_SECRET'}
+    {key: 'nextauthSecret', envKey: 'NEXT_AUTH_SECRET'},
+    {key: 'service', envKey: 'SERVICE'}
 ];
 export const getPrivateEnvConfig = (): PrivateEnvConfig => {
     return getConfig(configData) as unknown as PrivateEnvConfig
