@@ -1,8 +1,8 @@
-import { ApiResponse } from "@/types/api";
-import { Method } from "axios";
 import { getPrivateEnvConfig } from "./envConfig";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./authOptions";
+import { ApiResponse } from "@/types/api";
+import { Method } from "axios";
 
 interface NextRequestOptions<Data, Dto> {
     service: string;

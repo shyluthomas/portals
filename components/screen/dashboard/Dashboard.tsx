@@ -3,7 +3,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { signOut } from "next-auth/react";
 
 
-export const Dashboard = () => {
+const Dashboard = () => {
 
     const signoutEvent = () => {
         signOut({ callbackUrl: '/' });
@@ -30,3 +30,5 @@ export const Dashboard = () => {
        
     );
 }
+
+export default Dashboard;
