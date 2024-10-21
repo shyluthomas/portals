@@ -1,13 +1,19 @@
 'use client';
+import PDataGrid from "@/components/PDataGrid/PDataGrid";
 import { Box, Container, Typography } from "@mui/material";
 import { signOut } from "next-auth/react";
+import dashboradColumnDef from "./dashboradColumnDef";
+import { DashBoard } from "@/types/dashborad/dashBoard";
 
-
-const Dashboard = () => {
-
+interface DashboardProps {
+  dashboardData: DashBoard[];
+}
+const Dashboard = ({ dashboardData }: DashboardProps) => {
     const signoutEvent = () => {
         signOut({ callbackUrl: '/' });
     }
+
+
     return (
           <Container maxWidth="lg">
       <Box
@@ -25,6 +31,12 @@ const Dashboard = () => {
         <Box sx={{ maxWidth: 'sm' }}>
         <button onClick={() => signoutEvent() }>Sign Out</button>
         </Box>
+        <PDataGrid 
+          columns={dashboradColumnDef}
+          rows={dashboardData}
+          getRowId={(row) => row.age}
+        />
+        
       </Box>
     </Container>
        

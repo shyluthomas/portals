@@ -35,7 +35,6 @@ export const nextRequest = async <Data = unknown, Dto = unknown>({
         }
     }
     const session = await getServerSession(authOptions);
-    console.log('session', session)
     const token = session?.accessToken;
     if(!token) {
         return {
