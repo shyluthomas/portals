@@ -4,6 +4,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { signOut } from "next-auth/react";
 import dashboradColumnDef from "./dashboradColumnDef";
 import { DashBoard } from "@/types/dashborad/dashBoard";
+import PTextBox from "@/components/PTextBox/PTextBox";
 
 interface DashboardProps {
   dashboardData: DashBoard[];
@@ -38,6 +39,8 @@ const Dashboard = ({ dashboardData }: DashboardProps) => {
         />
         
       </Box>
+      
+      <PTextBox  name="name" customLabel="sample text" error="yesy"></PTextBox>
     </Container>
        
     );

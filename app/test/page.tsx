@@ -1,12 +1,12 @@
 /* page for testing the component  */
 
-import PButton from "@/components/PButton/PButton";
+import FormComponent from "@/components/screen/form/form";
 
 
 export default function TestPage() {
 
     return (
-        <PButton  variant="contained">submit</PButton>
+       <FormComponent />
     )
 
 }
