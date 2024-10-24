@@ -1,36 +1,53 @@
 'use client';
 
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, FormProvider, SubmitHandler, UseFormProps, useForm } from "react-hook-form";
 import { Field, FormValues, PFormRef } from "./PFormTypes";
 import PFormFields from "./PFormFields";
 import { forwardRef, useImperativeHandle } from "react";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { styled } from "@mui/material";
+import clsx from "clsx";
 
-interface PFormProps {
+interface PFormProps<TFieldValues extends FieldValues = FieldValues> {
     formFields: Field[];
-    defaultValues: FormValues;
-    validators: yup.ObjectSchema<FormValues>;
+    defaultValues: UseFormProps<TFieldValues>['defaultValues'];
+    validators?: yup.ObjectSchema<FormValues>;
+    onSubmitHandler: (data: TFieldValues) => Promise<void>,
+    onResetHandler?: (data: TFieldValues) => void,
+    classNames?: string;
 }
+const PformClass: Record<string, string> = {
+    ROOT: 'PForm-root',
+};
 
- const PForm = forwardRef<PFormRef, PFormProps> (({ formFields, defaultValues, validators }, ref) => {
+const Form = styled('form')({});
+
+ const PForm = forwardRef<PFormRef, PFormProps> (({ formFields, defaultValues, validators, onSubmitHandler, classNames }, ref) => {
     const methods = useForm<FormValues>({
         defaultValues,
-        resolver: yupResolver(validators),
+        resolver: validators && yupResolver(validators),
       });
       const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
-        console.log('Form Data:', data);
+        onSubmitHandler(data);
       };
+
+    //   const onReset: ResetHa<FormValues> = (data: FormValues) => {
+    //     onSubmitHandler(data);
+    //   };
 
       useImperativeHandle(
         ref, () => ({
-            submit: () => methods.handleSubmit(onSubmit),
+            ...methods,
+            submit: () => methods.handleSubmit(onSubmit)(),
             reset: () => methods.reset(),
         })
       );
       return (
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <Form
+          className={clsx(classNames,PformClass.ROOT)}
+          onSubmit={methods.handleSubmit(onSubmit)}>
             {/* Pass the dynamic fields array to the FormFields component */}
             <PFormFields formFields={formFields} />
     
@@ -38,7 +55,7 @@ interface PFormProps {
             <button type="submit"style={{ display: 'none' }}>
               Submit
             </button>
-          </form>
+          </Form>
     
         
         </FormProvider>

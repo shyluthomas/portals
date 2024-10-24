@@ -6,6 +6,7 @@ import { Field, PFormRef } from "@/components/PForm/PFormTypes";
 import { formValidationSchema } from "@/lib/validators/test/formValidationSchema";
 import { Box, Container } from "@mui/material";
 import React, { useId, useRef } from "react";
+import { FieldValues } from "react-hook-form";
 const FormComponent = () => {
    
   const formRef = useRef<PFormRef>(null);
@@ -13,8 +14,8 @@ const FormComponent = () => {
 
   // Dynamic default values and fields array
   const defaultValues = {
-    username: 'JohnDoe',
-    age: 25,
+    username: '',
+    age: 0,
   };
   const fields: Field[] = [
     {
@@ -29,6 +30,9 @@ const FormComponent = () => {
     },
   ];
 
+  const onFormsubmit = async<TFieldData extends FieldValues = FieldValues>  (data: TFieldData) => {
+    console.log(data);
+  }
     return (
       <Container maxWidth="lg">
       <Box
@@ -47,9 +51,11 @@ const FormComponent = () => {
       ref={formRef}
       key={key}
       validators={formValidationSchema}
+      onSubmitHandler={onFormsubmit}
       />
     
       <PButton onClick={() => formRef.current?.submit()}>Submit</PButton>
+      <PButton onClick={() => formRef.current?.reset()}>Reset</PButton>
         
       </Box>
       

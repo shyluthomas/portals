@@ -1,3 +1,5 @@
+import { UseFormReturn } from "react-hook-form";
+
 export enum InputMapType {
     TEXT = 'text',
     CHECKBOX = 'checkbox',
@@ -24,7 +26,7 @@ export type Field = {
     [key: string]: unknown; // To allow dynamic fields with different types
   };
 
-  export interface PFormRef {
-    submit: () => void;
+  export interface PFormRef extends UseFormReturn {
+    submit: () => Promise<void>;
     reset: () => void;
   }
