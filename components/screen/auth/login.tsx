@@ -3,7 +3,15 @@
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Box, Container } from '@mui/material';
+import { Box, styled } from '@mui/material';
+
+const Container = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%',
+});
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -28,7 +36,7 @@ const Login = () => {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Container>
     <Box
       sx={{
         my: 4,
