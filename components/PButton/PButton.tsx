@@ -15,6 +15,14 @@ const Button = styled(MuiButton, {
     color: theme.palette.primary.main,
     fontSize: '14px',
     lineHeight: '24px',
+    variants: [
+        {
+            props: { variant: 'contained' },
+            style: {
+                color: 'white',
+            }
+        }
+    ]
    
 }));
 

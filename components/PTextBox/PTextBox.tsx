@@ -10,6 +10,7 @@ export interface CustomTextFieldProps extends Omit<TextFieldProps, 'error'>{
 }
 
 const CustomTextField = styled(TextField)({
+    marginBottom: '20px',
     '& label.Mui-focused': {
         color: 'blue',
       },
