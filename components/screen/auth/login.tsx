@@ -7,17 +7,24 @@ import { Typography, styled } from '@mui/material';
 import PTextBox from '@/components/PTextBox/PTextBox';
 import PButton from '@/components/PButton/PButton';
 
-const Container = styled('div')({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   height: '100%',
-});
+  [theme.containerQueries.up(350)]: {
+    width: '100%',
+  }
+}));
 
-const Form = styled('form')({
-  padding: '20px'
-})
+const Form = styled('form')(({ theme }) => ({
+  padding: '20px',
+  textAlign: 'center',
+  [theme.containerQueries.up(350)]: {
+
+  }
+}));
 
 const Login = () => {
   const [email, setEmail] = useState('');
